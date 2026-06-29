@@ -133,7 +133,7 @@ export default function B1Dashboard() {
             Persiapan Mandiri Goethe B1
           </div>
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
-            Halo, <span className="text-goethe-purple">{settings.name || "Pelajar B1"}</span>!
+            Halo, <span className="text-goethe-purple">{settings.name === "Pelajar A2" ? "Pelajar B1" : settings.name || "Pelajar B1"}</span>!
           </h1>
           <p className="text-gray-600 text-sm md:text-base max-w-xl">
             Selamat datang di <span className="font-bold">GoetheForge B1</span>. Ujian Goethe B1 bersifat modular. Anda membutuhkan minimal <span className="font-bold text-goethe-purple">60/100 poin</span> di masing-masing modul untuk lulus!

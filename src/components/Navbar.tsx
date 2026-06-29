@@ -89,34 +89,34 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-3">
-            <div className="flex items-center gap-1 mr-2 border-r border-gray-100 pr-3">
+          <div className="hidden lg:flex items-center gap-2 xl:gap-3">
+            <div className="flex items-center gap-1 mr-1 xl:mr-2 border-r border-gray-150 pr-2 xl:pr-3">
               {/* Level Selector Toggle */}
               <div className="bg-gray-100 p-0.5 rounded-xl flex gap-0.5 text-xs font-bold">
                 <button
                   onClick={() => handleLevelChange("A2")}
-                  className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  className={`px-2 py-1 rounded-lg transition-all cursor-pointer ${
                     level === "A2"
                       ? "bg-goethe-purple text-white shadow-sm"
                       : "text-gray-500 hover:text-gray-800"
                   }`}
                 >
-                  Goethe A2
+                  A2
                 </button>
                 <button
                   onClick={() => handleLevelChange("B1")}
-                  className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                  className={`px-2 py-1 rounded-lg transition-all cursor-pointer ${
                     level === "B1"
                       ? "bg-goethe-purple text-white shadow-sm"
                       : "text-gray-500 hover:text-gray-800"
                   }`}
                 >
-                  Goethe B1
+                  B1
                 </button>
               </div>
             </div>
 
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-0.5 xl:gap-1">
               {NAV_ITEMS.map((item) => {
                 const Icon = item.icon;
                 const targetHref = getHref(item.href);
@@ -125,13 +125,13 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     href={targetHref}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
+                    className={`flex items-center gap-1.5 px-2 py-1.5 xl:px-3 xl:py-2 rounded-lg text-xs xl:text-sm font-bold transition-all cursor-pointer ${
                       isActive
                         ? "bg-goethe-purple text-white shadow-md shadow-goethe-purple/15"
                         : "text-gray-600 hover:text-goethe-purple hover:bg-goethe-light"
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-3.5 h-3.5 hidden xl:block" />
                     {item.label}
                   </Link>
                 );
