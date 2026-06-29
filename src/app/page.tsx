@@ -39,6 +39,10 @@ export default function Home() {
     updateStreak();
     
     const loadedSettings = getSettings();
+    if (loadedSettings.level === "B1") {
+      window.location.href = "/b1";
+      return;
+    }
     const loadedProgress = getProgress();
     const loadedWortschatz = getWortschatzProgress();
     const loadedStreak = getStreak();

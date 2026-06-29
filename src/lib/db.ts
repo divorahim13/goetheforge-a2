@@ -4,6 +4,7 @@
 export interface UserSettings {
   name: string;
   examDate: string;
+  level?: "A2" | "B1";
 }
 
 export interface ModuleProgress {
@@ -28,7 +29,7 @@ export interface ExamAttempt {
   lesenScore: number;  // out of 25
   horenScore: number;  // out of 25
   schreibenScore: number; // out of 25
-  totalScore: number;   // out of 75 (Wait! A2 actual exam is 4 parts, 100 points. We have 4 modules. Oh wait, reading, listening, writing, speaking. Each 25 points. Total = 100 points.)
+  totalScore: number;   // out of 75 or 100
   sprechenScore?: number; // Sprechen is out of 25
   passed: boolean;
   notes: string;
@@ -52,16 +53,20 @@ const KEYS = {
 
 // --- SETTINGS ---
 export function getSettings(): UserSettings {
-  if (!IS_BROWSER) return { name: "Pelajar A2", examDate: getDefaultExamDate() };
+  if (!IS_BROWSER) return { name: "Pelajar A2", examDate: getDefaultExamDate(), level: "A2" };
   try {
     const data = localStorage.getItem(KEYS.SETTINGS);
-    if (data) return JSON.parse(data);
+    if (data) {
+      const parsed = JSON.parse(data);
+      if (!parsed.level) parsed.level = "A2";
+      return parsed;
+    }
   } catch (e) {
     console.error("Error reading settings from localStorage", e);
   }
   
   // Set default settings if not exists
-  const defaults = { name: "Pelajar A2", examDate: getDefaultExamDate() };
+  const defaults: UserSettings = { name: "Pelajar A2", examDate: getDefaultExamDate(), level: "A2" };
   saveSettings(defaults);
   return defaults;
 }
@@ -82,11 +87,13 @@ function getDefaultExamDate(): string {
 }
 
 // --- MODULE PROGRESS ---
-export function getProgress(): ProgressState {
+export function getProgress(level?: "A2" | "B1"): ProgressState {
   const emptyProgress: ProgressState = { lesen: [], horen: [], schreiben: [], sprechen: [] };
   if (!IS_BROWSER) return emptyProgress;
   try {
-    const data = localStorage.getItem(KEYS.PROGRESS);
+    const activeLevel = level || getSettings().level || "A2";
+    const key = activeLevel === "B1" ? `${KEYS.PROGRESS}_b1` : KEYS.PROGRESS;
+    const data = localStorage.getItem(key);
     if (data) return JSON.parse(data);
   } catch (e) {
     console.error("Error reading progress", e);
@@ -94,17 +101,19 @@ export function getProgress(): ProgressState {
   return emptyProgress;
 }
 
-export function saveModuleProgress(moduleName: keyof ProgressState, score: number, maxScore: number): void {
+export function saveModuleProgress(moduleName: keyof ProgressState, score: number, maxScore: number, level?: "A2" | "B1"): void {
   if (!IS_BROWSER) return;
   try {
-    const progress = getProgress();
+    const activeLevel = level || getSettings().level || "A2";
+    const progress = getProgress(activeLevel);
     const newEntry: ModuleProgress = {
       score,
       maxScore,
       date: new Date().toISOString(),
     };
     progress[moduleName].push(newEntry);
-    localStorage.setItem(KEYS.PROGRESS, JSON.stringify(progress));
+    const key = activeLevel === "B1" ? `${KEYS.PROGRESS}_b1` : KEYS.PROGRESS;
+    localStorage.setItem(key, JSON.stringify(progress));
     
     // Also trigger streak update when progress is saved
     updateStreak();
@@ -138,10 +147,12 @@ export function saveWortschatzStatus(wordId: string, status: "none" | "learned" 
 }
 
 // --- EXAM HISTORY ---
-export function getExamHistory(): ExamAttempt[] {
+export function getExamHistory(level?: "A2" | "B1"): ExamAttempt[] {
   if (!IS_BROWSER) return [];
   try {
-    const data = localStorage.getItem(KEYS.HISTORY);
+    const activeLevel = level || getSettings().level || "A2";
+    const key = activeLevel === "B1" ? `${KEYS.HISTORY}_b1` : KEYS.HISTORY;
+    const data = localStorage.getItem(key);
     if (data) return JSON.parse(data);
   } catch (e) {
     console.error("Error reading history", e);
@@ -149,16 +160,18 @@ export function getExamHistory(): ExamAttempt[] {
   return [];
 }
 
-export function addExamAttempt(attempt: Omit<ExamAttempt, "date">): void {
+export function addExamAttempt(attempt: Omit<ExamAttempt, "date">, level?: "A2" | "B1"): void {
   if (!IS_BROWSER) return;
   try {
-    const history = getExamHistory();
+    const activeLevel = level || getSettings().level || "A2";
+    const history = getExamHistory(activeLevel);
     const fullAttempt: ExamAttempt = {
       ...attempt,
       date: new Date().toISOString(),
     };
     history.push(fullAttempt);
-    localStorage.setItem(KEYS.HISTORY, JSON.stringify(history));
+    const key = activeLevel === "B1" ? `${KEYS.HISTORY}_b1` : KEYS.HISTORY;
+    localStorage.setItem(key, JSON.stringify(history));
     updateStreak();
   } catch (e) {
     console.error("Error adding exam attempt", e);
