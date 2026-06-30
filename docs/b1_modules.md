@@ -23,3 +23,6 @@ GoetheForge B1 provides comprehensive preparation for the Goethe-Zertifikat B1 e
 ## Full Test Simulator
 
 Runs Lesen, Hören, and Schreiben sequentially under authentic time limits.
+## Audio Engine (Text-to-Speech)
+
+Simulates listening audios using the browser Web Speech API (window.speechSynthesis) in German (de-DE).
