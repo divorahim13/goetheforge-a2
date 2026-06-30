@@ -16,3 +16,7 @@ GoetheForge B1 provides comprehensive preparation for the Goethe-Zertifikat B1 e
 
 - Duration: 60 minutes
 - Tasks: 3 parts (Personal email, forum opinion, formal request)
+## Sprechen (Speaking) Module
+
+- Duration: 15 minutes
+- Tasks: 3 parts (Joint planning, presentation, feedback)
