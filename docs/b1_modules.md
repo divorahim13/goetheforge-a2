@@ -26,3 +26,6 @@ Runs Lesen, Hören, and Schreiben sequentially under authentic time limits.
 ## Audio Engine (Text-to-Speech)
 
 Simulates listening audios using the browser Web Speech API (window.speechSynthesis) in German (de-DE).
+## Local Database Storage
+
+Progress is saved modularly in local storage under separate namespace keys for A2 and B1.
