@@ -20,3 +20,6 @@ GoetheForge B1 provides comprehensive preparation for the Goethe-Zertifikat B1 e
 
 - Duration: 15 minutes
 - Tasks: 3 parts (Joint planning, presentation, feedback)
+## Full Test Simulator
+
+Runs Lesen, Hören, and Schreiben sequentially under authentic time limits.
