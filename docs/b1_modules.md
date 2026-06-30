@@ -12,3 +12,7 @@ GoetheForge B1 provides comprehensive preparation for the Goethe-Zertifikat B1 e
 - Duration: 40 minutes
 - Parts: 4 parts (30 items)
 - Play limits: Teil 1 & 4 (2x), Teil 2 & 3 (1x)
+## Schreiben (Writing) Module
+
+- Duration: 60 minutes
+- Tasks: 3 parts (Personal email, forum opinion, formal request)
