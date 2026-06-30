@@ -11,12 +11,11 @@ import { getSettings, saveSettings } from "@/lib/db";
 
 const NAV_ITEMS = [
   { href: "/", label: "Dashboard", icon: Home },
+  { href: "/materi", label: "Materi", icon: GraduationCap },
   { href: "/lesen", label: "Lesen", icon: BookOpen },
   { href: "/horen", label: "Hören", icon: Volume2 },
   { href: "/schreiben", label: "Schreiben", icon: PenTool },
   { href: "/sprechen", label: "Sprechen", icon: Mic },
-  { href: "/wortschatz", label: "Wortschatz", icon: GraduationCap },
-  { href: "/tips", label: "Tips", icon: Lightbulb },
   { href: "/simulasi", label: "Simulasi", icon: ClipboardCopy },
   { href: "/progress", label: "Progress", icon: BarChart3 },
 ];
