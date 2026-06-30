@@ -29,3 +29,6 @@ Simulates listening audios using the browser Web Speech API (window.speechSynthe
 ## Local Database Storage
 
 Progress is saved modularly in local storage under separate namespace keys for A2 and B1.
+## Responsive Layout and Styling
+
+Tidied desktop navbar with dynamic icon hiding to prevent double-line wrapping.
